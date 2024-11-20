@@ -1,34 +1,35 @@
-#Integração com Alexa
+# Integração com Alexa
 
 ##### Este projeto tem o objetivo de conectar a ESP8266 com o uma rede Wi-Fi e ser controlado remotamente via a API SinricPro. Essa que faz a integração com a placa e a Alexa.
 
-## Código
+## Código main.cpp
 
-1. **Bibliotecas Necessárias**:
+#### **Bibliotecas Necessárias**:
 
    ```cpp
-   #include <ESP8266WiFi.h>
-   #include <SinricPro.h>
-   #include <SinricProSwitch.h>
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <SinricPro.h>
+#include <SinricProSwitch.h>
    ```
 
    Essas bibliotecas permitem a conexão com Wi-Fi e a integração com a API SinricPro.
 
-2. **Credenciais de Rede e SinricPro**:
+#### **Conexão com a API SinricPro**:
 
-   - Defina o nome e a senha da rede Wi-Fi, bem como as chaves `APP_KEY`, `APP_SECRET` e `SWITCH_ID` obtidas no SinricPro.
 
    ```cpp
-   #define WIFI_SSID "Nome_da_Rede"
-   #define WIFI_PASS "Senha_da_Rede"
-   #define APP_KEY "sua_app_key"
-   #define APP_SECRET "seu_app_secret"
-   #define SWITCH_ID "seu_switch_id"
+#define WIFI_SSID " "
+#define WIFI_PASS ""
+#define APP_KEY "bb589d7c-7758-4762-8950-9fe246b8f9f0"
+#define APP_SECRET "a361da81-c2c9-4b5b-9281-0a77ab562179-4ecc9adb-e32d-4ffb-b8e7-1902553c3ba5"
+#define SWITCH_ID "6733d00c8f3cc517eb16716a"
+#define BAUD_RATE 9600
    ```
 
-### Conexão Wi-Fi
+#### Conexão Wi-Fi
 
-A função `setupWiFi` realiza a conexão do ESP8266 com a rede Wi-Fi e exibe o endereço IP no monitor serial ao estabelecer a conexão.
+A função `setupWiFi` realiza a conexão do ESP8266 com a rede Wi-Fi e exibe o endereço IP no monitor serial ao estabelecer a conexão como anteriormente mostrado nas fases anteriores do projeto.
 
 ```cpp
 void setupWiFi() {
@@ -42,9 +43,9 @@ void setupWiFi() {
 }
 ```
 
-### Configuração SinricPro
+#### Configuração SinricPro
 
-A função `setupSinricPro` inicializa a conexão com o SinricPro e define os callbacks para controlar o dispositivo via comandos remotos.
+A função `setupSinricPro`  faz a conexão com o SinricPro e define as chamadas para os comandos remotos.
 
 ```cpp
 void setupSinricPro() {
@@ -56,48 +57,43 @@ void setupSinricPro() {
 }
 ```
 
-### Controle Manual (Botão)
+#### Controle com o botão
 
 A função `handleButtonPress` lida com a pressão do botão físico, alternando o estado do dispositivo e enviando o novo estado para o SinricPro.
 
 ```cpp
-void handleButtonPress() {
+void handleButtonPress()
+{
   unsigned long actualMillis = millis();
-  if (digitalRead(BUTTON_PIN) == LOW && actualMillis - lastBtnPress > 1000) {
+  if (digitalRead(BUTTON_PIN) == LOW && actualMillis - lastBtnPress > 1000)
+  {
     myPowerState = !myPowerState;
     digitalWrite(RELE_PIN, myPowerState ? LOW : HIGH);
-    SinricProSwitch& mySwitch = SinricPro[SWITCH_ID];
+	
+    // Envia o novo estado para o servidor SinricPro
+	
+    SinricProSwitch &mySwitch = SinricPro[SWITCH_ID];
     mySwitch.sendPowerStateEvent(myPowerState);
+    Serial.printf("Device %s turned %s (manually via flashbutton)\r\n",
+                  mySwitch.getDeviceId().c_str(), myPowerState ? "on" : "off");
     lastBtnPress = actualMillis;
   }
 }
 ```
 
-## Estrutura do Código
-
-1. **setup()**:
-
-   - Configura os pinos para o botão e o relé.
-   - Inicializa a conexão serial e configura o Wi-Fi e o SinricPro.
-
-2. **loop()**:
-   - Chamadas para `handleButtonPress()` e `SinricPro.handle()` são feitas para monitorar o botão e gerenciar os comandos da plataforma SinricPro.
-
-```cpp
-void loop() {
-  handleButtonPress();
-  SinricPro.handle();
-}
-```
 
 ## Arquitetura
 
+#### Como o projeto opera:
+
 <p align="center">
-  <img alt="Arquitetura Integração Alexa" src="imgs/arquitetura.jpeg">
+  <img alt="bomba" src="../imgs/arquitetura.jpeg">
 </p>
 
 ## Imagens do Desenvolvimento do Projeto
 
-<p align="center">
+#### Operação:
 
+<p align="center">
+<img alt="gif" src="../imgs/funcionamento.gif">
 </p>
