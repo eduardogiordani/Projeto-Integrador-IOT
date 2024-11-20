@@ -93,7 +93,7 @@ void loop() {
 ## Arquitetura
 
 <p align="center">
-  <img alt="Arquitetura Integração Alexa" src="readme adds/Lampada-Alexa.gif">
+  <img alt="Arquitetura Integração Alexa" src="imgs/arquitetura.jpeg">
 </p>
 
 ## Imagens do Desenvolvimento do Projeto
