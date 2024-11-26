@@ -6,9 +6,9 @@
 // Define constantes para conexão Wi-Fi e SinricPro
 #define WIFI_SSID "Gustavo Siega"
 #define WIFI_PASS "gustavo2023"
-#define APP_KEY "bb589d7c-7758-4762-8950-9fe246b8f9f0"
-#define APP_SECRET "a361da81-c2c9-4b5b-9281-0a77ab562179-4ecc9adb-e32d-4ffb-b8e7-1902553c3ba5"
-#define SWITCH_ID "6733d00c8f3cc517eb16716a"
+#define APP_KEY ""
+#define APP_SECRET ""
+#define SWITCH_ID ""
 #define BAUD_RATE 9600
 // Define os pinos GPIO para o botão e o rele
 #define BUTTON_PIN 0 // GPIO para o BOTÃO (inverso: LOW = pressionado, HIGH = liberado)
