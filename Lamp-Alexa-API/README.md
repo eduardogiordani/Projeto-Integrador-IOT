@@ -21,9 +21,9 @@
    ```cpp
 #define WIFI_SSID " "
 #define WIFI_PASS ""
-#define APP_KEY "bb589d7c-7758-4762-8950-9fe246b8f9f0"
-#define APP_SECRET "a361da81-c2c9-4b5b-9281-0a77ab562179-4ecc9adb-e32d-4ffb-b8e7-1902553c3ba5"
-#define SWITCH_ID "6733d00c8f3cc517eb16716a"
+#define APP_KEY ""
+#define APP_SECRET ""
+#define SWITCH_ID "6"
 #define BAUD_RATE 9600
    ```
 
